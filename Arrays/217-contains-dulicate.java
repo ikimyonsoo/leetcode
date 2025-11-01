@@ -1,3 +1,7 @@
+// LeetCode #217: Contains Duplicate 
+// Approach: Brute force O(n^2), then HashSet iteration O(n)
+// Date: 20251101
+
 import java.util.HashSet;
 
 class Solution {
