@@ -10,15 +10,16 @@ class Solution {
             for (int j = n - i; j >= 0; j--) {
                 if (i == m - 1 && j == n - 1) {
                     curr[j] = grid[i][j]; 
+                    continue; 
                 }
 
-                int right = 0; 
-                int down = 0; 
+                int right = Integer.MAX_VALUE; 
+                int down = Integer.MAX_VALUE; 
 
                 if (i + 1 < m) { down = prev[i]; }
                 if (j + 1 < n) { right = curr[j+1]; }
 
-                curr[j] = curr[j] + Math.min(right, down); 
+                curr[j] = grid[i][j] + Math.min(right, down); 
             }
 
             prev = curr.clone();
