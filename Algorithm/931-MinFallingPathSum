@@ -18,16 +18,26 @@ class Solution {
                 if (i + 1 < n) {
                     down = prev[j];
                     
-                    if (j - 1 < n) { downLeft = curr[j-1]; }
-                    if (j + 1 < n) { downRight = curr[j+1]; }
+                    // downLeft and downRight is from prev array, not curr 
+                    // j - 1 is always < n. We need to check if j - 1 >= 0 instead
+                    if (j - 1 < n) { downLeft = prev[j-1]; }
+                    if (j + 1 < n) { downRight = prev[j+1]; }
     
                 }
-                curr[j] = grid[i][j] + Math.min(down. downLeft, downRight);
+                // Java doesn't do 3 value comparison
+                // use two Math.min 
+                curr[j] = matrix[i][j] + Math.min(down, Math.min(downLeft, downRight));
 
             }
             prev = curr.clone();
         }
-        return prev[0];
+        // We shouldn't just return prev[0]. Instead, we want to return the min val of first row 
+        int min = Integer.MAX_VALUE;
+        for (int val : prev) {
+            min = Math.min(min, val);
+        }
+        
+        return min;
         
     }
 
