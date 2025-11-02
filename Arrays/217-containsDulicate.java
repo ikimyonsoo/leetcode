@@ -1,4 +1,4 @@
-// LeetCode #217: Contains Duplicate 
+// LeetCode #217 Contains Duplicate 
 // Approach: Brute force O(n^2), then HashSet iteration O(n)
 // Date: 20251101
 

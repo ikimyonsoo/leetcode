@@ -1,3 +1,7 @@
+// LeetCode #62 Unique Paths
+// Approach: DP bottom up (tabulation)
+// Date: 20251101
+
 class Solution {
     public int uniquePaths(int m, int n) {
         // Set up dp tables
