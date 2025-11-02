@@ -1,0 +1,34 @@
+class Solution {
+    public int minFallingPathSum(int[][] matrix) {
+        int n = matrix.length;
+        int[] curr = new int[n];
+        int[] prev = new int[n];
+
+        for (int i = n - 1; i >= 0 ; i--) {
+            for (int j = n - 1; j >= 0 ; j--) {
+                if (i == n - 1) {
+                    curr[j] = matrix[i][j];
+                    continue;
+                }
+
+                int down = Integer.MAX_VALUE;
+                int downLeft = Integer.MAX_VALUE;
+                int downRight = Integer.MAX_VALUE;
+
+                if (i + 1 < n) {
+                    down = prev[j];
+                    
+                    if (j - 1 < n) { downLeft = curr[j-1]; }
+                    if (j + 1 < n) { downRight = curr[j+1]; }
+    
+                }
+                curr[j] = grid[i][j] + Math.min(down. downLeft, downRight);
+
+            }
+            prev = curr.clone();
+        }
+        return prev[0];
+        
+    }
+
+}
