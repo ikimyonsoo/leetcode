@@ -1,0 +1,24 @@
+// LeetCode #217 Contains Duplicate 
+// Approach: Brute force O(n^2), then HashMap iteration O(n)
+// Date: 20251103
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0 ; i < nums.length; i++ ) {
+
+            int diff = target - nums[i];
+
+            if (map.containsKey(diff)) {
+                return new int[] {map.get(diff), i};
+            }
+
+
+            //set what I want to have a quick access as key 
+            map.put(nums[i], i);
+        }
+        return new int[] {}; 
+
+    }
+}
