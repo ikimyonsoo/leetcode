@@ -13,13 +13,19 @@ class Solution {
                 count[s.charAt(i) - 'a']++;
             }
 
+            //It is Arrays.toString not ArraytoString 
             String key = Arrays.toString(count);
+
+            //It will still run even if I miss out <String> and write new ArrayList<>()
             List<String> temp = map.getOrDefault(key, new ArrayList<String>());
             temp.add(s);
             map.put(key, temp);
         }
-        
-        return map.values(); 
+
+        //map.values() won't compile due to incompatible types 
+        //map.values() returns a Collection<List<String>>
+        //Collection<List<String>> cannot be converted to List<List<String>>
+        return new ArrayList<>(map.values()); 
     }
     
 }
