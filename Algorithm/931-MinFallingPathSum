@@ -20,7 +20,7 @@ class Solution {
                     
                     // downLeft and downRight is from prev array, not curr 
                     // j - 1 is always < n. We need to check if j - 1 >= 0 instead
-                    if (j - 1 < n) { downLeft = prev[j-1]; }
+                    if (j - 1 >= 0) { downLeft = prev[j-1]; }
                     if (j + 1 < n) { downRight = prev[j+1]; }
     
                 }
@@ -36,7 +36,7 @@ class Solution {
         for (int val : prev) {
             min = Math.min(min, val);
         }
-        
+
         return min;
         
     }

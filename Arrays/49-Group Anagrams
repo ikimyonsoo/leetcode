@@ -1,0 +1,25 @@
+// LeetCode #49 Group Anagrams 
+// Approach: O(nm) where m is the length of an element & n is the number of elements
+//           O(n) auxiliary space (the total extra space beyond input/output) due to
+//           HashMap storing up to one entry per input string 
+// Date: 20251107
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        for (String s : strs) {
+            int[] count = new int[26];
+            for (int i = 0; i < s.length(); i++) {
+                count[s.charAt(i) - 'a']++;
+            }
+
+            String key = Arrays.toString(count);
+            List<String> temp = map.getOrDefault(key, new ArrayList<String>());
+            temp.add(s);
+            map.put(key, temp);
+        }
+        
+        return map.values(); 
+    }
+    
+}

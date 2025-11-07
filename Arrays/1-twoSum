@@ -1,4 +1,4 @@
-// LeetCode #217 Contains Duplicate 
+// LeetCode #1 Two Sum 
 // Approach: Brute force O(n^2), then HashMap iteration O(n)
 // Date: 20251103
 
@@ -14,10 +14,10 @@ class Solution {
                 return new int[] {map.get(diff), i};
             }
 
-
             //set what I want to have a quick access as key 
             map.put(nums[i], i);
         }
+        //No solution found 
         return new int[] {}; 
 
     }
