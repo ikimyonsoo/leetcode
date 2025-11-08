@@ -1,7 +1,13 @@
 // LeetCode #21
 // Approach: At first I came up with sorting logic without the edge cases
 //           where list1 == null || list2 == null and get nullpoint error 
-// Date:
+
+//          Second attempt with the video, I got 3 pointers with a dummy(sentinel) node
+//          Simply return dummy.next as a head of the desirable list 
+//          Traverse the list of interest itself with curr pointer
+//          while traverse list1 and list2 accordingly 
+
+// Date: 20251108
 
 /**
  * Definition for singly-linked list.
@@ -15,47 +21,46 @@
  */
 class Solution {    
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ListNode head = null;
-
-        //if both lists are null, return null
-        if (list1 == null && list2 == null) {
-            return head;
-        }
-
-        else if (list1 == null) {
-            return list2;
-        }
-
-        else if (list2 == null) {
-            return list1; 
-        }
         
-        //if one of the list is null, return head of the other list 
-        if (list1.val <= list2.val) {
-            head = list1;
-        } else {
-            head = list2; 
-        }
+        // Instead of creating a head node separately, create a dummy node and connect it to the list of interest
+        
+        ListNode dummy = new ListNode(-1);
+        ListNode curr = dummy; 
+        
+        // ListNode head = null;
+        // //if both lists are null, return null
+        // if (list1 == null && list2 == null) {
+        //     return head;
+        // }
 
-        ListNode curr1 = list1;
-        ListNode curr2 = list2; 
+        ListNode l1 = list1;
+        ListNode l2 = list2; 
 
         //while curr1 != ull && curr2 != null, not the val 
-        while (curr1 != null && curr2 != null) {
-            if (curr1.val <= curr2.val) {
-                ListNode temp = curr1.next;
-                curr1.next = curr2;
-                curr1 = temp;
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                //set next pointer 
+                curr.next = l1;
+
+                //move curr pointer to the next element 
+                curr = curr.next;
+
+                //move list1 pointer to the next element 
+                l1 = l1.next; 
             }
 
-            else if (curr1.val >= curr2.val) {
-                ListNode temp = curr2.next;
-                curr2.next = curr1;
-                curr2 = temp;
+            else {
+                curr.next = l2;
+                curr = curr.next; 
+                l2 = l2.next; 
             }
+
         }
 
-        return head;
+        if (l1 != null) { curr.next = l1; }
+        else { curr.next = l2; }
+
+        return dummy.next;
         
     }
 };
