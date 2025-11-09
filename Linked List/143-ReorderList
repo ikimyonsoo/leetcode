@@ -1,5 +1,7 @@
 // LeetCode #143
-// Approach: Brute force to Tortoise and Hare algorithm
+// Approach: Tortoise and Hare algorithm to find the mid
+//           Reverse the later half and cut the list after the mid point
+//           Interweave the two  
 // Date: 20251108 
 
 /**
@@ -14,9 +16,10 @@
  */
 class Solution {
 
-    public void middle(ListNode head) {
-        ListNode fast = null;
-        ListNode slow = null; 
+    public ListNode middle(ListNode head) {
+        //Fast and slow pointer point at head to begin with 
+        ListNode fast = head;
+        ListNode slow = head; 
 
         while (fast != null && fast.next != null) {
             fast = fast.next.next;
@@ -26,7 +29,7 @@ class Solution {
 
     }
 
-    public void reverse(ListNode head) {
+    public ListNode reverse(ListNode head) {
         ListNode curr = head;
         ListNode prev = null;
 
@@ -39,15 +42,28 @@ class Solution {
             curr.next = prev; 
 
             //move curr pointer to the next element in the list 
+            prev = curr;
             curr = temp; 
         }
+        return prev;
 
     }
     public void reorderList(ListNode head) {
         ListNode mid = middle(head);
-        ListNode last = reverse(mid);
 
-        while (head != last) {
+        //Reverse after the mid point
+        // 1 -> 2 -> 3 <- 4 <- 5 
+        //After finding the mid, we want to cut the list after mid
+        // 1 -> 2 -> 3 -> null 
+        // 4 -> 5 -> null
+        // Then reverse the pointer 
+        // null <- 4 <- 5 
+        //So instead of last = reverse(mid), do reverse(mid.next)
+        ListNode last = reverse(mid.next);
+        //actually create the separate list to make the problem simplier 
+        mid.next = null;
+
+        while (head != null && last != null) {
             ListNode tempH = head.next;
             ListNode tempL = last.next;
 
