@@ -1,0 +1,63 @@
+// LeetCode #143
+// Approach: Brute force to Tortoise and Hare algorithm
+// Date: 20251108 
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+
+    public void middle(ListNode head) {
+        ListNode fast = null;
+        ListNode slow = null; 
+
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+
+    }
+
+    public void reverse(ListNode head) {
+        ListNode curr = head;
+        ListNode prev = null;
+
+        //when curr = null (reached the end), it no longer has a pointer from the prev
+        //element because the last element already points the prev element of itself 
+        while (curr != null) {
+            //save curr.next tempararily 
+            ListNode temp = curr.next;
+            //change the next pointer to prev 
+            curr.next = prev; 
+
+            //move curr pointer to the next element in the list 
+            curr = temp; 
+        }
+
+    }
+    public void reorderList(ListNode head) {
+        ListNode mid = middle(head);
+        ListNode last = reverse(mid);
+
+        while (head != last) {
+            ListNode tempH = head.next;
+            ListNode tempL = last.next;
+
+            head.next = last;
+            last.next = tempH;
+
+            head = tempH;
+            last = tempL;
+        }
+    }
+
+
+}
