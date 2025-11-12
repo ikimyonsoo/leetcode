@@ -1,5 +1,8 @@
 // LeetCode #451
-// Approach: 
+// Approach: init hashing ASCII with all letters, 
+//           update the frequency 
+//           sort it
+//           append to the string builder and return 
 // Date: 20251111
 
 class Solution {
@@ -7,21 +10,33 @@ class Solution {
         Pair[] pairs = new Pair[256];
         StringBuilder res = new StringBuilder();
 
-        for (char c : s.toCharArray()) {
-            if (pairs[c - 'a'] == null) {
-                pairs[c - 'a'] = new Pair(c, 0);
-            } 
-            pairs[c - 'a'].freq++; 
+        //change for (Pair p : pairs) to from i = 0 to i < 256
+        for (int i = 0; i < 256; i++) {
+            //now we are doing all ASCII letters, it start from 0 
+            //(char) i is the ASCII letter itself 
+            //init pairs array 
+            pairs[i] = new Pair ((char) i, 0);
         } 
 
+        //Update the frequency 
+        for (int i = 0; i < s.length(); i++) {
+            pairs[s.charAt(i)].freq++; 
+        }
+
+        //sort it 
         Arrays.sort(pairs, (a, b) -> {
             if (a.freq != b.freq) {return b.freq - a.freq; }
             return a.ch - b.ch;
         });
 
-        for (int i = 0; i < 26; i++) {
-            if (pairs[i].freq != 0) {
-            res.append(pairs[i].ch);
+        //
+        for (int i = 0; i < 256; i++) {
+            if (pairs[i].freq > 0) {
+                //need to repeat 
+                //to repeat, need to convert ch to string 
+                //by + "" -> easily convert it to string
+                //.repeat(int) repeats only the string (not char) 
+                res.append((pairs[i].ch + "").repeat(pairs[i].freq));
             }
         }
         
