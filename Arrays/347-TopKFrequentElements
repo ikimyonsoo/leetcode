@@ -1,0 +1,45 @@
+// LeetCode #
+// Approach: 
+// Date:
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+
+        //HashMap to count frequency 
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        for (int num : nums) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+
+        //Bucket sort 
+        //creata bucket (array of arrays)
+        List<Integer>[] bucket = new List[nums.length + 1];
+        //iterate through entry 
+        for (Map.Entry<Integer, Integer> e : freqMap.entrySet()) {
+            int freq = e.getValue();
+            if (bucket[freq] == null) {
+                bucket[freq] = new ArrayList<>();
+                
+            }
+            //bucket[freq] is an array inside of bucket[]
+            bucket[freq].add(e.getKey());
+        }
+
+        //Bucket sort to array 
+        List<Integer> temp = new ArrayList<>();
+        for (int i = bucket.length - 1; i >= 0; i--) {
+            //addAll appends all elements of the specified collection
+            //to the end of the current collection 
+            //flatten the array 
+            if (bucket[i] != null) { temp.addAll(bucket[i]); }
+        }
+
+        //final res arry with the size k 
+        int[] res = new int[k];
+        for (int i = 0; i < k; i++) {
+            res[i] = temp.get(i);
+        }
+        return res;
+
+    }
+}
