@@ -1,0 +1,42 @@
+// LeetCode #451
+// Approach: 
+// Date: 20251111
+
+class Solution {
+    public String frequencySort(String s) {
+        Pair[] pairs = new Pair[256];
+        StringBuilder res = new StringBuilder();
+
+        for (char c : s.toCharArray()) {
+            if (pairs[c - 'a'] == null) {
+                pairs[c - 'a'] = new Pair(c, 0);
+            } 
+            pairs[c - 'a'].freq++; 
+        } 
+
+        Arrays.sort(pairs, (a, b) -> {
+            if (a.freq != b.freq) {return b.freq - a.freq; }
+            return a.ch - b.ch;
+        });
+
+        for (int i = 0; i < 26; i++) {
+            if (pairs[i].freq != 0) {
+            res.append(pairs[i].ch);
+            }
+        }
+        
+        return res.toString();
+        
+    }
+
+    //class doesn't have ()
+    public class Pair {
+        public char ch;
+        public int freq;
+
+        public Pair(char ch, int freq) {
+            this.ch = ch;
+            this.freq = freq; 
+        }
+    }
+}
