@@ -38,6 +38,8 @@ class Solution {
             if (candidates[i] != candidates[j]) {
                 //Skip the current element and continue to find combinations without it 
                 combinationSum2R(candidates, target, j, li, res);
+                //DO NOT FORGET TO BREAK OUT OF THE LOOP once find the next unique element!
+                break;
             }
 
         }
