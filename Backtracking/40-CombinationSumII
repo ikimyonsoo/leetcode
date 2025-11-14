@@ -6,25 +6,41 @@
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> res = new ArrayList<>();
+        //Sort the array
         Arrays.sort(candidates);
         combinationSum2R(candidates, target, 0, new ArrayList<>(), res);
         return res; 
     }
 
     public void combinationSum2R(int[] candidates, int target, int i, List<Integer> li, List<List<Integer>> res) {
+        //Base case: find the valid combination -> add to the res
         if (target == 0) {
-            if (!(res.contains(li))) {
-                res.add(new ArrayList<>(li));
-            }
+            res.add(new ArrayList<>(li));
             return;
         }
 
+        //Base case: if there's no valid combination -> stop
         if (i == candidates.length || target < 0) { return; }
 
+        //Recurrence relation: POS
+        //Pick the current element and continue to find combinations by subtracting it from target
         li.add(candidates[i]);
         combinationSum2R(candidates, target - candidates[i], i + 1, li, res);
+
+        //Skip the current element 
         li.remove(li.size() - 1); 
-        combinationSum2R(candidates, target, i + 1, li, res);
+
+        //Instead of checking contains(e) at the base case, 
+        //backtrack the redundant element by looping thr the array and skip
+        //once I find the element that is not equal to the current element candidates[i],
+        //run the recursive call 
+        for (int j = i + 1; j < candidates.length; j++) {
+            if (candidates[i] != candidates[j]) {
+                //Skip the current element and continue to find combinations without it 
+                combinationSum2R(candidates, target, j, li, res);
+            }
+
+        }
 
     }
 }
