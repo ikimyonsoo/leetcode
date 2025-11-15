@@ -1,0 +1,44 @@
+// LeetCode #90
+// Approach: 
+// Date: 20241114
+
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        //Don't forget to sort nums to handle duplicates 
+        Arrays.sort(nums);
+        subsetsWithDupR(nums, 0, new ArrayList<>(), res);
+        return res; 
+
+    }
+
+    private void subsetsWithDupR(int[] nums, int i, List<Integer> li, List<List<Integer>> res) {
+        //Base case: if reach the end of nums, add list to the res 
+        if (i == nums.length) {
+            res.add(new ArrayList<>(li));
+            return;
+        }
+
+        //POS
+        //Pick nums[i]
+        li.add(nums[i]);
+        subsetsWithDupR(nums, i + 1, li, res);
+
+        //Skip nums[i]
+        li.remove(li.size()-1);
+
+        //traverse to the next element that is not redundant with nums[i]
+        for (int j = i + 1; j < nums.length; j++) {
+            //If find nums[j], recurse from it 
+            if (nums[i] != nums[j]) {
+                subsetsWithDupR(nums, j, li, res);
+                //exit out from this function call so that we don't hit
+                //line 38, the case where if condition in for j loop not executed  
+                return;
+            }
+        }
+        //In case if condition within for loop doesn't execute til end, 
+        //execute the base case 
+        subsetsWithDupR(nums, nums.length, li, res);
+    }
+}
