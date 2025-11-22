@@ -1,0 +1,38 @@
+// LeetCode #17
+// Approach: backtracking + cartesian product
+// Date: 20241122
+
+class Solution {
+    private final String[] map; 
+
+    public Solution() {
+        map = new String[] {"", "", "abc", "def", "ghi", "jkl",
+            "mno", "pqrs", "tuv", "wxyz"
+        };
+    }
+    public List<String> letterCombinations(String digits) {
+        List<String> res = new ArrayList<>();
+        if (digits.length() == 0) {
+            return res;
+        }
+        backTracking(digits, res, 0, "");
+        return res; 
+        
+    }
+
+    private void backTracking(String digits, List<String> res, int i, String curr) {
+        if (i == digits.length()) {
+            res.add(curr);
+            return;
+        }
+
+        //Grab the current string 
+        String s = map[digits.charAt(i) - '0'];
+        for (int j = 0; i < s.length(); j++) {
+            //add s[j] (current string of jth char) to curr then move on 
+            //to the next index of digits 
+            backTracking(digits, res, i + 1, curr + s.charAt(j));
+        }
+
+    }
+}
