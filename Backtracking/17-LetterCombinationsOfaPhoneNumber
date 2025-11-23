@@ -28,7 +28,7 @@ class Solution {
 
         //Grab the current string 
         String s = map[digits.charAt(i) - '0'];
-        for (int j = 0; i < s.length(); j++) {
+        for (int j = 0; j < s.length(); j++) {
             //add s[j] (current string of jth char) to curr then move on 
             //to the next index of digits 
             backTracking(digits, res, i + 1, curr + s.charAt(j));

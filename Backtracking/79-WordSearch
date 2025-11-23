@@ -1,0 +1,39 @@
+// LeetCode #
+// Approach: Backtracking 
+// Date: 20251123
+
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        int N = board.length;
+        int M = board[0].length;
+
+        for (int r = 0; r < N - 1; r++) {
+            for (int c = 0; c < M - 1; c++) {
+                //If we find the first char of word in the board
+                if (board[r][c] == word.charAt(0)) {
+                    if (backtracking(r, c, board, word, 0)) return true;
+                }
+            }
+        }
+        return false;
+        
+    }
+
+    private boolean backtracking(int r, int c, char[][] board, String word, int i) {
+        if (i == word.length()) return true; 
+
+        //Note: should do '' instead of "" because it is char 
+        if (board[r][c] != word.charAt(i) || board[r][c] == ' ') return; 
+
+        char temp = board[r][c];
+        board[r][c] = ' ';
+
+        boolean options = backtracking(r + 1, c, board, word, i + 1) ||
+                          backtracking(r - 1, c, board, word, i + 1) ||
+                          backtracking(r, c + 1, board, word, i + 1) ||
+                          backtracking(r, c - 1, board, word, i + 1);
+        
+        board[r][c] = temp;
+        return options; 
+    }
+}
