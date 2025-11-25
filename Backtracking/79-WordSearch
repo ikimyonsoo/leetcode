@@ -7,8 +7,8 @@ class Solution {
         int N = board.length;
         int M = board[0].length;
 
-        for (int r = 0; r < N - 1; r++) {
-            for (int c = 0; c < M - 1; c++) {
+        for (int r = 0; r < N ; r++) {
+            for (int c = 0; c < M ; c++) {
                 //If we find the first char of word in the board
                 if (board[r][c] == word.charAt(0)) {
                     if (backtracking(r, c, board, word, 0)) return true;
@@ -22,8 +22,16 @@ class Solution {
     private boolean backtracking(int r, int c, char[][] board, String word, int i) {
         if (i == word.length()) return true; 
 
+        //Boundary check first
+        if (r < 0 || c < 0 || r >= board.length || c >= board[0].length) return false;
+        
+        //check if those are matching first 
+        if (board[r][c] != word.charAt(i)) return false;  
+        
         //Note: should do '' instead of "" because it is char 
-        if (board[r][c] != word.charAt(i) || board[r][c] == ' ') return; 
+        //Should return something because it is boolean func 
+        //OOB
+        if (board[r][c] == ' ') return false; 
 
         char temp = board[r][c];
         board[r][c] = ' ';
