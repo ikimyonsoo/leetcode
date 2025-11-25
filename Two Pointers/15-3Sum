@@ -1,0 +1,42 @@
+// LeetCode #15 3Sum
+// Approach: brute force: 3 for i, j, k loops O(n^3) -> two pointers O(n^2)
+// Date: 20251125
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        //DO NOT FORGET TO SORT 
+        
+        int n = nums.length; 
+        
+        for (int i = 0; i < n; i++) {
+            //Skip duplicates from nums[1]
+            if (i > 0 && nums[i] == nums[i - 1]) continue; 
+            
+            int l = i + 1; 
+            int r = n - 1;
+
+            while (l < r) {
+                int temp = nums[l] + nums[r]; 
+                int sum = -nums[i];
+
+                if (temp < sum) {
+                    l++;
+                } 
+                else if (temp > sum) {
+                    r--;
+                }
+
+                else {
+                    res.add(new int[]{nums[i], nums[l], nums[r]});
+                    l++;
+                    r--;
+                    while (l < r && nums[l] == nums[l - 1]) l++;
+                    while (l < r && nums[r] == nums[r + 1]) r--; 
+                }
+            }
+        }
+        return res; 
+        
+    }
+}
