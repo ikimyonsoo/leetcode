@@ -6,7 +6,8 @@ class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         //DO NOT FORGET TO SORT 
-        
+        Arrays.sort(nums);
+
         int n = nums.length; 
         
         for (int i = 0; i < n; i++) {
@@ -28,7 +29,11 @@ class Solution {
                 }
 
                 else {
-                    res.add(new int[]{nums[i], nums[l], nums[r]});
+                    //new int[]{} won't work because array int[] is not compatible
+                    //with List<Integer>
+                    //int[] cannot be converted to List<Integer> 
+                    //do Arrays.asList
+                    res.add(Arrays.asList(nums[i], nums[l], nums[r]));
                     l++;
                     r--;
                     while (l < r && nums[l] == nums[l - 1]) l++;
