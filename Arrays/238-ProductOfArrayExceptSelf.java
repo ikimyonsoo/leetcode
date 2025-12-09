@@ -27,3 +27,33 @@ class Solution {
         
     }
 }
+
+/** 
+func ProductExceptSelf(nums []int) []int {
+
+    n := len(nums)
+    answer := make([]int, n)
+
+    // Initialize all elements to 1
+    for i := 0; i < n; i++ {
+        answer[i] = 1
+    }
+
+    // First pass - products of all elements before index i
+    prefix := 1
+    for i := 0; i < n; i++ {
+        answer[i] *= prefix
+        prefix *= nums[i]
+    }
+
+    // Second pass - products of all elements after index i
+    suffix := 1
+    for i := n - 1; i >= 0; i-- {
+        answer[i] *= suffix
+        suffix *= nums[i]
+    }
+
+    return answer
+
+}
+    */

@@ -22,10 +22,10 @@ class Solution {
             if (temp == target) {
                 //Java requires every array to be explicitly constructed using the
                 //new keyword unless it appears inline during variable init
-                return {l + 1, r + 1};
+                return new int[]{l + 1, r + 1};
             }
         }
-        return {};
+        return new int[]{};
         
     }
 }

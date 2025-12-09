@@ -1,0 +1,26 @@
+class Solution {
+    public boolean isPalindrome(String s) {
+        String lettersOnly = new StringBuilder();
+
+        //To iterate a String, we need toCharArray()
+        for (char ch : s.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                lettersOnly.append(ch);
+            }
+        }
+
+        //Convert stringbuilder back to string to implement .toLowerCase()
+        String cleaned = lettersOnly.toString().toLowerCase(); 
+
+        int start = 0;
+        int end = s.length() - 1;
+
+        while (start < end) {
+            if (cleaned.charAt(start) != cleaned.charAt(end)) return fase;
+            start++;
+            end--;
+        }
+        return true;
+        
+    }
+}
