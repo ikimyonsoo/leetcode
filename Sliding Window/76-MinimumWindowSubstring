@@ -1,0 +1,51 @@
+// LeetCode #76 Minimum Window Substring
+// Approach: Longest subarray/substring
+// Date:
+
+class Solution {
+    public String minWindow(String s, String t) {
+      //hash array is a tool to keep track of a valid window 
+      //char matters/counts only when hash[char] > 0
+      int[] hash = new int[256];
+      int l = 0, r = 0;
+
+      //It is a valid window iff count == m 
+      int count = 0; 
+      int minLen = Integer.MAX_VALUE; 
+      int n = s.length(), m = t.length();
+      int start = -1; 
+
+      for (char ch : t) {
+         //init the hash array by incrementing frequencies of main characters
+         hash[t.charAt(ch)]++;
+      }
+
+      while (r < n) {
+         //increment count iff the frequency of char > 0
+         if (hash[s.charAt(r)] > 0) count++;
+         //decrement as we already found it 
+         hash[s.charAt(r)]--;
+
+         //once we enter the valid window, we optimize 
+         while (count == m) {
+            int len = r - l + 1;
+
+            //update minLen only if current len < minLen 
+            if (len < minLen) {
+               minLen = len; 
+               start = l;  
+            }
+
+            //move l pointer -> restore what we had decremented earlier back
+            //it won't affect our count/validity window as it is just balancing out
+            hash[s.charAt(l)]++;
+            //exclude what we had included to the valid window 
+            if (hash[s.charAt(l)] > 0) count--;
+            l++;
+         }
+         r++; 
+      }
+      return (start == -1) ? "" : s.substring(start, start + minLen);
+        
+    }
+}
